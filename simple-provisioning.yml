@@ -67,3 +67,14 @@
           - 22
           cidr_ip: 0.0.0.0/0
           rule_desc: allow all on port 80
+
+  - name: Create EC2
+    ec2:
+      key_name: "{{ ec2_key_name }}"
+      instance_type: "{{ instance_type }}"
+      image: "{{ instance_image }}"
+      wait: yes
+      group: webserver
+      count: 3
+      vpc_subnet_id: "{{ result_subnet.subnet.id }}"
+      assign_public_ip: yes
